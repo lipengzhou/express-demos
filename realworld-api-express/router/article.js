@@ -1,115 +1,39 @@
 const express = require('express')
+const articleCtrl = require('../controller/article')
 
 const router = express.Router()
 
 // 获取文章列表
-router.get('/', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('get /')
-  } catch (err) {
-    next(err)
-  }
-})
+router.get('/', articleCtrl.getArticles)
 
 // 获取用户关注的作者文章列表
-router.get('/feed', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('get /feed')
-  } catch (err) {
-    next(err)
-  }
-})
+router.get('/feed', articleCtrl.getFeedArticles)
 
 // 获取文章
-router.get('/:slug', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('获取文章')
-  } catch (err) {
-    next(err)
-  }
-})
+router.get('/:slug', articleCtrl.getArticle)
 
-// 获取文章
-router.post('/', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('创建文章')
-  } catch (err) {
-    next(err)
-  }
-})
+// 创建文章
+router.post('/', articleCtrl.createArticle)
 
 // 更新文章
-router.put('/:slug', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('更新文章')
-  } catch (err) {
-    next(err)
-  }
-})
+router.put('/:slug', articleCtrl.updateArticle)
 
 // 删除文章
-router.put('/:slug', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('删除文章')
-  } catch (err) {
-    next(err)
-  }
-})
+router.delete('/:slug', articleCtrl.deleteArticle)
 
 // 添加文章评论
-router.put('/:slug/comments', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('添加文章评论')
-  } catch (err) {
-    next(err)
-  }
-})
+router.post('/:slug/comments', articleCtrl.createArticleComment)
 
 // 获取文章评论列表
-router.get('/:slug/comments', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('获取文章评论列表')
-  } catch (err) {
-    next(err)
-  }
-})
+router.get('/:slug/comments', articleCtrl.getArticleComments)
 
 // 删除文章评论
-router.delete('/:slug/comments/:id', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('删除文章评论')
-  } catch (err) {
-    next(err)
-  }
-})
+router.delete('/:slug/comments/:id', articleCtrl.deleteArticleComment)
 
 // 文章点赞
-router.post('/:slug/favorite', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('文章点赞')
-  } catch (err) {
-    next(err)
-  }
-})
+router.post('/:slug/favorite', articleCtrl.favoriteArticle)
 
 // 取消文章点赞
-router.delete('/:slug/favorite', async (req, res, next) => {
-  try {
-    // 处理请求
-    res.send('取消文章点赞')
-  } catch (err) {
-    next(err)
-  }
-})
+router.delete('/:slug/favorite', articleCtrl.unfavoriteArticle)
 
 module.exports = router
