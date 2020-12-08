@@ -1,6 +1,7 @@
 // 用户登录
 exports.login = async (req, res, next) => {
   try {
+    JSON.parse('dsnakndsa')
     // 处理请求
     res.send('post /users/login')
   } catch (err) {
