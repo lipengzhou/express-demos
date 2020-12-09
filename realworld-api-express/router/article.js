@@ -12,30 +12,30 @@ router.get('/', articleCtrl.getArticles)
 router.get('/feed', articleCtrl.getFeedArticles)
 
 // 获取文章
-router.get('/:slug', articleCtrl.getArticle)
+router.get('/:articleId', articleValidator.getArticle, articleCtrl.getArticle)
 
 // 创建文章
 router.post('/', auth, articleValidator.createArticle, articleCtrl.createArticle)
 
 // 更新文章
-router.put('/:slug', articleCtrl.updateArticle)
+router.put('/:articleId', articleCtrl.updateArticle)
 
 // 删除文章
-router.delete('/:slug', articleCtrl.deleteArticle)
+router.delete('/:articleId', articleCtrl.deleteArticle)
 
 // 添加文章评论
-router.post('/:slug/comments', articleCtrl.createArticleComment)
+router.post('/:articleId/comments', articleCtrl.createArticleComment)
 
 // 获取文章评论列表
-router.get('/:slug/comments', articleCtrl.getArticleComments)
+router.get('/:articleId/comments', articleCtrl.getArticleComments)
 
 // 删除文章评论
-router.delete('/:slug/comments/:id', articleCtrl.deleteArticleComment)
+router.delete('/:articleId/comments/:id', articleCtrl.deleteArticleComment)
 
 // 文章点赞
-router.post('/:slug/favorite', articleCtrl.favoriteArticle)
+router.post('/:articleId/favorite', articleCtrl.favoriteArticle)
 
 // 取消文章点赞
-router.delete('/:slug/favorite', articleCtrl.unfavoriteArticle)
+router.delete('/:articleId/favorite', articleCtrl.unfavoriteArticle)
 
 module.exports = router

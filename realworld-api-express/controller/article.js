@@ -23,8 +23,13 @@ exports.getFeedArticles = async (req, res, next) => {
 // 获取文章
 exports.getArticle = async (req, res, next) => {
   try {
-    // 处理请求
-    res.send('getArticle')
+    const article = await Article.findById(req.params.articleId).populate('author')
+    if (!article) {
+      return res.status(404).end()
+    }
+    res.status(200).json({
+      article
+    })
   } catch (err) {
     next(err)
   }
@@ -38,7 +43,6 @@ exports.createArticle = async (req, res, next) => {
     article.author = req.user._id
     article.populate('author').execPopulate()
     await article.save()
-    console.log(article)
     res.status(201).json({
       article
     })
