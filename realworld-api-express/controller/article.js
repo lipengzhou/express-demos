@@ -3,12 +3,21 @@ const { Article } = require('../model')
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
   try {
-    const { limit = 20, offset = 0 } = req.query
+    const {
+      limit = 20,
+      offset = 0,
+      tag
+    } = req.query
 
-    const artilces = await Article.find()
+    const filter = {}
+
+    if (tag) {
+      filter.tagList = tag
+    }
+
+    const artilces = await Article.find(filter)
       .skip(Number.parseInt(offset)) // 跳过多少条
       .limit(Number.parseInt(limit)) // 取多少条
-
 
     const articlesCount = await Article.countDocuments()
 
