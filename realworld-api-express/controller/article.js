@@ -3,8 +3,12 @@ const { Article } = require('../model')
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
   try {
-    // 处理请求
-    res.send('getArticles')
+    const artilces = await Article.find()
+    const articlesCount = await Article.countDocuments()
+    res.status(200).json({
+      artilces,
+      articlesCount
+    })
   } catch (err) {
     next(err)
   }
