@@ -46,7 +46,6 @@ exports.login = [
   ]),
   validate([
     body('user.password').custom(async (password, { req }) => {
-      console.log(req.user)
       if (md5(password) !== req.user.password) {
         return Promise.reject('密码错误')
       }
