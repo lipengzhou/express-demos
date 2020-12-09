@@ -24,8 +24,13 @@ exports.getArticles = async (req, res, next) => {
     }
 
     const artilces = await Article.find(filter)
+      .populate('author')
       .skip(Number.parseInt(offset)) // 跳过多少条
       .limit(Number.parseInt(limit)) // 取多少条
+      .sort({
+        // -1 倒叙，1 升序
+        createdAt: -1
+      })
 
     const articlesCount = await Article.countDocuments()
 
