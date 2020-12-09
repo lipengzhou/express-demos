@@ -1,3 +1,5 @@
+const { Article } = require('../model')
+
 // 获取文章列表
 exports.getArticles = async (req, res, next) => {
   try {
@@ -32,7 +34,14 @@ exports.getArticle = async (req, res, next) => {
 exports.createArticle = async (req, res, next) => {
   try {
     // 处理请求
-    res.send('createArticle')
+    const article = new Article(req.body.article)
+    article.author = req.user._id
+    article.populate('author').execPopulate()
+    await article.save()
+    console.log(article)
+    res.status(201).json({
+      article
+    })
   } catch (err) {
     next(err)
   }
