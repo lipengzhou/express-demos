@@ -11,6 +11,7 @@
     rel="stylesheet" type="text/css">
   <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->
   <link rel="stylesheet" href="/public/css/main.css">
+  {{block 'head'}}{{/block}}
 </head>
 
 <body>
@@ -24,6 +25,12 @@
 
   <!-- 底部 -->
   {{include './footer.html'}}
+
+
+  <!-- 公共的 JavaScript 脚本 -->
+  <!-- <script src="jquery.js"></script> -->
+
+  {{block 'script'}}{{/block}}
 </body>
 
 </html>
