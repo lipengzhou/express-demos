@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <!-- 在页面中留一个特殊的标记，用于解析替换 -->
+  <!-- <ul>^_^</ul> -->
+
+  <h2>{{ foo }}</h2>
+
+  <ul>
+    {{ each todos }}
+    <!-- $value 就是遍历项 -->
+    <li>{{ $value.title }}</li>
+    {{ /each }}
+  </ul>
+</body>
+</html>
