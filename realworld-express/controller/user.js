@@ -20,6 +20,11 @@ exports.showRegister = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
+    console.log(req.body)
+    // 1. 数据验证
+    // 2. 验证通过，创建新的用户
+    // 3. 保持登陆状态
+    // 4. 跳转到首页
     res.send('post register')
   } catch (err) {
     next(err)
