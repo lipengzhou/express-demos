@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
     // 2. 验证通过，创建新的用户
     const user = new User(req.body.user)
     await user.save()
-    
+
     // 3. 保持登陆状态
     req.session.user = user
 

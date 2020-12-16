@@ -4,7 +4,9 @@ const morgan = require('morgan')
 const router = require('./router')
 const errorhandler = require('errorhandler')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const { sessionSecret } = require('./config/config.default')
+const mongoose = require('mongoose')
 require('./model')
 
 const app = express()
@@ -20,8 +22,12 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 过期时间，单位是毫秒
     // secure: true // 只有 HTTPS 协作才会收发 Cookie
-  } // 保存 Session id 的 Cookie 设置
+  }, // 保存 Session id 的 Cookie 设置
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  }) // 将数据持久化到 MongoDB 数据库中
 }))
 
 // 静态资源托管
