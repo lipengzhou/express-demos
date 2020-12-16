@@ -30,6 +30,13 @@ app.use(session({
   }) // 将数据持久化到 MongoDB 数据库中
 }))
 
+// 确保挂载到 Session 初始化配置后
+app.use((req, res, next) => {
+  // 统一给模板添加数据
+  app.locals.sessionUser = req.session.user
+  next()
+})
+
 // 静态资源托管
 app.use('/public', express.static(path.join(__dirname, './public')))
 app.use('/node_modules', express.static(path.join(__dirname, './node_modules')))
