@@ -2,16 +2,17 @@ const express = require('express')
 const userCtrl = require('../controller/user')
 const userValidator = require('../validator/user')
 const auth = require('../middleware/auth')
+const noAuth = require('../middleware/no-auth')
 
 const router = express.Router()
 
-router.get('/login', userCtrl.showLogin)
+router.get('/login', noAuth, userCtrl.showLogin)
 
-router.get('/register', userCtrl.showRegister)
+router.get('/register', noAuth, userCtrl.showRegister)
 
 router.post('/register', userValidator.register, userCtrl.register)
 
-router.get('/settings', userCtrl.showSettings)
+router.get('/settings', auth, userCtrl.showSettings)
 
 router.get('/profile/:username', userCtrl.showProfile)
 

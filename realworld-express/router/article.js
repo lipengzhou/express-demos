@@ -7,9 +7,9 @@ const router = express.Router()
 
 router.get('/', articleCtrl.showIndex)
 
-router.get('/editor', articleCtrl.showEditor)
+router.get('/editor', auth, articleCtrl.showEditor)
 
-router.get('/editor/:articleId', articleCtrl.showEditor)
+router.get('/editor/:articleId', auth, articleCtrl.showEditor)
 
 router.get('/article/:articleId', articleCtrl.showArticle)
 
