@@ -1,7 +1,8 @@
 {{extend './layout/layout.html'}}
 
 {{block 'body'}}
-<div class="auth-page">
+<div class="auth-page" id="login">
+  <h1>hello {% foo %}</h1>
   <div class="container page">
     <div class="row">
 
@@ -11,21 +12,20 @@
           <a href="">Have an account?</a>
         </p>
 
-        {{ if errors }}
         <ul class="error-messages">
-          {{ each errors }}
-          <li>{{ $value }}</li>
-          {{ /each }}
+          <li>That email is already taken</li>
         </ul>
-        {{ /if }}
 
         <!-- 
           传统的 Web 应用中表单提交有两种方式：
-            同步提交
+            同步提交（早期的 Web 常用的方式）
               Content-Type: application/x-www-form-urlencoded
-            异步提交
+            异步提交（随着 Ajax 的诞生大量使用）
+              jQuery + 客户端模板引擎
+              Vue.js 当做一个库来使用
          -->
-        <form action="/register" method="POST">
+        <!-- <form action="/register" method="POST"> -->
+        <form @submit.prevent="handleSubmit">
           {{if !isLogin }}
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="text" placeholder="Your Name" name="username">
@@ -46,4 +46,22 @@
     </div>
   </div>
 </div>
+{{/block}}
+
+{{block 'script'}}
+<script>
+;(() => {
+  const app = new Vue({
+    el: '#login',
+    data: {
+      foo: 'bar'
+    },
+    methods: {
+      handleSubmit () {
+        console.log('submit')
+      }
+    }
+  })
+})()
+</script>
 {{/block}}

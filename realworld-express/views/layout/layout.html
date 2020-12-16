@@ -28,7 +28,13 @@
 
 
   <!-- 公共的 JavaScript 脚本 -->
-  <!-- <script src="jquery.js"></script> -->
+  <script src="/node_modules/vue/dist/vue.js"></script>
+  <script>
+    // 全局混入，会影响所有的 Vue 实例
+    Vue.mixin({
+      delimiters: ['{%', '%}']
+    })
+  </script>
 
   {{block 'script'}}{{/block}}
 </body>
