@@ -16,6 +16,22 @@ exports.showRegister = async (req, res) => {
   }
 }
 
+exports.register = async (req, res) => {
+  try {
+    console.log(req.body)
+    if (!req.body.email) {
+      return res.render('login', {
+        errors: ['邮箱不能为空']
+      })
+      // return res.send('邮箱不能为空')
+    }
+    res.send('验证通过')
+    // res.send('post register')
+  } catch (err) {
+    next(err)
+  }
+}
+
 exports.showSettings = async (req, res) => {
   try {
     res.render('settings')
