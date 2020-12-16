@@ -3,9 +3,26 @@ const express = require('express')
 const morgan = require('morgan')
 const router = require('./router')
 const errorhandler = require('errorhandler')
+const session = require('express-session')
+const { sessionSecret } = require('./config/config.default')
 require('./model')
 
 const app = express()
+
+// 配置使用 Session 中间件
+//    存储 Session：1、 生成 Session ID 2、存储数据
+//      req.session.xxx = xxx
+//    获取 Session：1、根据 Session ID 获取 Session 容器中的数据
+//      req.session.xxx
+// 注意：默认数据存储到内存中
+app.use(session({
+  secret: sessionSecret, // 签发 Session id 的秘钥
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    // secure: true // 只有 HTTPS 协作才会收发 Cookie
+  } // 保存 Session id 的 Cookie 设置
+}))
 
 // 静态资源托管
 app.use('/public', express.static(path.join(__dirname, './public')))

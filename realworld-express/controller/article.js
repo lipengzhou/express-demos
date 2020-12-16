@@ -1,5 +1,6 @@
 exports.showIndex = (req, res, next) => {
   try {
+    console.log(req.session.user)
     res.render('index')
   } catch (err) {
     next(err)
