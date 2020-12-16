@@ -10,6 +10,8 @@ router.get('/login', noAuth, userCtrl.showLogin)
 
 router.get('/register', noAuth, userCtrl.showRegister)
 
+router.get('/logout', userCtrl.logout)
+
 router.post('/register', userValidator.register, userCtrl.register)
 
 router.get('/settings', auth, userCtrl.showSettings)
