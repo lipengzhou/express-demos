@@ -17,7 +17,7 @@ exports.register = validate([
 
   body('user.email')
     .notEmpty().withMessage('邮箱不能为空')
-    .isEmail().withMessage('邮箱格式不正确')
+    // .isEmail().withMessage('邮箱格式不正确')
     .bail()
     .custom(async email => {
       const user = await User.findOne({ email })

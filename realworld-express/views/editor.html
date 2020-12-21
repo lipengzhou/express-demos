@@ -1,7 +1,7 @@
 {{extend './layout/layout.html'}}
 
 {{block 'body'}}
-<div class="editor-page">
+<div class="editor-page" id="editor-page">
   <div class="container page">
     <div class="row">
 
@@ -9,18 +9,27 @@
         <form>
           <fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Article Title">
+                <input v-model="article.title" type="text" class="form-control form-control-lg" placeholder="Article Title">
             </fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="What's this article about?">
+                <input v-model="article.description" type="text" class="form-control" placeholder="What's this article about?">
             </fieldset>
             <fieldset class="form-group">
-                <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"></textarea>
+                <textarea v-model="article.body" class="form-control" rows="8" placeholder="Write your article (in markdown)"></textarea>
             </fieldset>
             <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="Enter tags"><div class="tag-list"></div>
+                <input type="text" class="form-control" placeholder="Enter tags" @keyup.enter="handleAddTag"><div class="tag-list">
+                  <span
+                    class="tag-default tag-pill"
+                    v-for="tag in article.tagList"
+                    :key="tag"
+                  >
+                    <i class="ion-close-round"></i>
+                    {% tag %}
+                  </span>
+                </div>
             </fieldset>
-            <button class="btn btn-lg pull-xs-right btn-primary" type="button">
+            <button class="btn btn-lg pull-xs-right btn-primary" type="button" @click.prevent="handleSubmit">
                 Publish Article
             </button>
           </fieldset>
@@ -31,3 +40,37 @@
   </div>
 </div>
 {{/block}}
+
+{{ block 'script' }}
+<script>
+;(() => {
+  const app = new Vue({
+    el: '#editor-page',
+    data: {
+      article: {
+        title: '',
+        description: '',
+        body: '',
+        tagList: []
+      }
+    },
+    methods: {
+      async handleSubmit () {
+        try {
+          const { data } = await axios.post('/articles', { article: this.article })
+          window.location.href = `/article/${data.article._id}`
+        } catch (err) {
+          window.alert('发布失败')
+        }
+      },
+
+      handleAddTag (e) {
+        if (!e.target.value) return
+        this.article.tagList = [...new Set([...this.article.tagList, e.target.value])]
+        e.target.value = ''
+      }
+    }
+  })
+})()
+</script>
+{{ /block }}
