@@ -22,12 +22,26 @@ exports.showRegister = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    console.log(req.body)
     // 1. 数据验证
     // 2. 验证通过，创建新的用户
     const user = new User(req.body.user)
     await user.save()
 
+    // 3. 保持登陆状态
+    req.session.user = user
+
+    // 4. 跳转到首页
+    res.status(200).json({
+      user
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.login = async (req, res) => {
+  try {
+    const user = req.user
     // 3. 保持登陆状态
     req.session.user = user
 

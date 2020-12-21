@@ -8,6 +8,8 @@ const router = express.Router()
 
 router.get('/login', noAuth, userCtrl.showLogin)
 
+router.post('/login', noAuth, userValidator.login, userCtrl.login)
+
 router.get('/register', noAuth, userCtrl.showRegister)
 
 router.get('/logout', userCtrl.logout)

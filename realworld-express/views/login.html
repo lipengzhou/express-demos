@@ -8,7 +8,11 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{ isLogin ? 'Sign in' : 'Sign up' }}</h1>
         <p class="text-xs-center">
-          <a href="">Have an account?</a>
+          {{ if isLogin }}
+          <a href="/register">Need an account?</a>
+          {{ else }}
+          <a href="/login">Have an account?</a>
+          {{ /if }}
         </p>
 
         <ul class="error-messages">
@@ -68,7 +72,11 @@
         // 2. 验证通过，提交表单
         try {
           // axios 默认提交的数据格式 application/json
-          const { data } = await axios.post('/register', {
+          const url = window.location.pathname === '/login'
+            ? '/login'
+            : '/register'
+          
+          const { data } = await axios.post(url, {
             user: this.user
           })
 
