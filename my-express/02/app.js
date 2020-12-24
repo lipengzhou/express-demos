@@ -1,22 +1,19 @@
+/**
+ * - 抽取创建 App 模块
+ */
+
 const express = require('./express')
 
 const app = express()
 
-// 1. 需求
-app.get(function (req, res) {
-  res.end('You send GET request')
+app.get('/', (req, res) => {
+  res.end('get /')
 })
 
-app.post(function (req, res) {
-  res.end('You send POST request')
+app.get('/about', (req, res) => {
+  res.end('get /about')
 })
 
-app.put(function (req, res) {
-  res.end('You send PUT request')
+app.listen(3000, () => {
+  console.log('http://localhost:3000')
 })
-
-app.delete(function (req, res) {
-  res.end('You send DELETE request')
-})
-
-app.listen(3000, () => console.log('http://localhost:3000'))

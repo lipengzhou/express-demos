@@ -1,0 +1,41 @@
+Router
+  stack [
+    Layer 1 {
+      path: 'xx', 请求路径
+      dispatch, 处理函数
+      Route {
+        stack [
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' }
+        ],
+        dispatch // 遍历调用 stack 中的 handler
+      }
+    },
+
+    Layer 2 {
+      path: 'xx',
+      dispatch,
+      Route {
+        stack [
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' }
+        ],
+        dispatch // 遍历调用 stack 中的 handler
+      }
+    },
+
+    Layer 3 {
+      path: 'xx',
+      dispatch,
+      Route {
+        stack [
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' },
+          Layer { path: 'xx', method: 'xxx', handler: 'xxx' }
+        ],
+        dispatch // 遍历调用 stack 中的 handler
+      }
+    },
+  ]

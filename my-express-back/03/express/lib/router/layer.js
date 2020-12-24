@@ -1,8 +1,6 @@
-module.exports = Layer
-
-function Layer(method, fn) {
+function Layer(method, handler) {
   this.method = method
-  this.handle = fn
+  this.handler = handler
 }
 
 Layer.prototype.handle_method = function (req) {
@@ -11,10 +9,12 @@ Layer.prototype.handle_method = function (req) {
 
 Layer.prototype.handle_request = function (req, res, next) {
   if (!this.handle_method(req)) return
-  const fn = this.handle
+  const handler = this.handler
   try {
-    fn(req, res, next)
+    handler(req, res, next)
   } catch (err) {
     throw err
   }
 }
+
+module.exports = Layer
